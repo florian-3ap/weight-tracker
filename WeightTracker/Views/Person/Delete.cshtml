@@ -1,0 +1,69 @@
+﻿@model Person
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h3>Person Löschen</h3>
+
+<h4>Sind Sie sicher, dass Sie die Person löschen wollen?</h4>
+<div>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SecondName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Plz)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Plz)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Place)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Place)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Abteilung.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Abteilung.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Project.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Project.Name)
+        </dd>
+    </dl>
+
+    <div class="col-xs-12">
+        <form asp-action="Delete">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <input type="submit" value="Löschen" class="btn btn-primary"/>
+                </div>
+                <div style="float:left">
+                    <a asp-controller="Home" asp-action="Index">zurück zur Liste</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
