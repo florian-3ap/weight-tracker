@@ -20,7 +20,5 @@ namespace WeightTracker.Data
         }
 
         public DbSet<Person> Person { get; set; }
-        public DbSet<Abteilung> Abteilung { get; set; }
-        public DbSet<Project> Project { get; set; }
     }
 }

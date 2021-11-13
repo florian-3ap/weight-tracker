@@ -27,4 +27,17 @@
     <Folder Include="wwwroot\images\Document\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Project\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Project\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Project\Details.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Project\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Project\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Abteilung\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Abteilung\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Abteilung\Details.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Abteilung\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Abteilung\Index.cshtml" />
+  </ItemGroup>
+
 </Project>

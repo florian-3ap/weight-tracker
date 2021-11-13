@@ -19,84 +19,17 @@ namespace WeightTracker.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Person.Include(x => x.Abteilung).Include(x => x.Project).ToListAsync());
+            return View(await _context.Person.ToListAsync());
         }
 
-        public IActionResult MasterData()
+        public IActionResult Persons()
         {
-            var model = new MasterDataViewModel()
-            {
-                AbteilungList = _context.Abteilung.ToList(),
-                ProjectList = _context.Project.ToList()
-            };
-            return View(model);
+            return View(_context.Person.ToList());
         }
 
         public IActionResult Statistics()
         {
-            var personList = _context.Person.Include(x => x.Abteilung).Include(x => x.Project).ToList();
-            var statisticList = new StatisticsViewModel();
-
-            var abteilungsList = from pers in personList
-                group pers.AbteilungId by pers.Abteilung.Name
-                into newGroup
-                select new
-                {
-                    Field = newGroup.Key,
-                    Ncount = newGroup.Count()
-                };
-
-            foreach (var item in abteilungsList)
-            {
-                var statistic = new StatisticsViewModel()
-                {
-                    Table = "Abteilung",
-                    Theme = item.Field,
-                    Count = item.Ncount
-                };
-                statisticList.StatisticList.Add(statistic);
-            }
-
-            var projectLst = from proj in personList
-                group proj.ProjectId by proj.Project.Name
-                into newGroup
-                select new
-                {
-                    Field = newGroup.Key,
-                    Ncount = newGroup.Count()
-                };
-
-            foreach (var item in projectLst)
-            {
-                var statistic = new StatisticsViewModel()
-                {
-                    Table = "Projekt",
-                    Theme = item.Field,
-                    Count = item.Ncount
-                };
-                statisticList.StatisticList.Add(statistic);
-            }
-
-            return View(statisticList);
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            return View(new StatisticsViewModel());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

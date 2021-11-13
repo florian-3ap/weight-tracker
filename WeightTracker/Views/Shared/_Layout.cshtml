@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - WeightTracker</title>
+    <title>@ViewData["Title"] - Weight Tracker</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>
-        <link rel="stylesheet" href="~/myLib/css/IconStyle.css"/>
+        <link rel="stylesheet" href="~/myLib/css/style.css"/>
         <link rel="stylesheet" href="~/css/site.css"/>
     </environment>
     <environment exclude="Development">
@@ -33,24 +33,23 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <a asp-controller="Home" asp-action="MasterData">Stammdaten</a>
+                    <a asp-controller="Home" asp-action="Persons">Personen</a>
                 </li>
                 <li>
                     <a asp-controller="Home" asp-action="Statistics">Statistic</a>
                 </li>
             </ul>
-            @*<partial name="_LoginPartial" />*@
         </div>
     </div>
 </nav>
 
-<partial name="_CookieConsentPartial"/>
-
 <div class="container body-content">
-    @RenderBody()
+    <div>
+        @RenderBody()
+    </div>
     <hr/>
     <footer>
-        <p>&copy; 2020 - Personenverwaltung</p>
+        <p>&copy; 2021 - Weight Tracker</p>
     </footer>
 </div>
 

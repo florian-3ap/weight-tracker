@@ -11,46 +11,22 @@
     <hr/>
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.FirstName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.FirstName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.SecondName)
+            @Html.DisplayNameFor(model => model.LastName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.SecondName)
+            @Html.DisplayFor(model => model.LastName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Street)
+            @Html.DisplayNameFor(model => model.Age)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Street)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Plz)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Plz)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Place)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Place)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Abteilung.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Abteilung.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Project.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Project.Name)
+            @Html.DisplayFor(model => model.Age)
         </dd>
     </dl>
 
@@ -61,7 +37,7 @@
                     <input type="submit" value="Löschen" class="btn btn-primary"/>
                 </div>
                 <div style="float:left">
-                    <a asp-controller="Home" asp-action="Index">zurück zur Liste</a>
+                    <a asp-controller="Home" asp-action="Persons">zurück zur Liste</a>
                 </div>
             </div>
         </form>
