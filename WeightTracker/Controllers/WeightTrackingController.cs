@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WeightTracker.Data;
 using WeightTracker.Models;
@@ -18,42 +17,46 @@ namespace WeightTracker.Controllers
             _context = context;
         }
 
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
-            ViewBag.ParsonNameList =
-                new SelectList(_context.Person, "Id", "Name", _context.Person.FirstOrDefault().Name);
+            if (id == null) return NotFound();
+
+            var person = _context.Person.FirstOrDefault(x => x.Id == id);
+            if (person == null) return NotFound();
+
             return View(new WeightTracking
             {
-                Date = DateTime.Today
+                Date = DateTime.Today,
+                PersonId = person.Id,
+                Person = person
             });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(WeightTracking tracking)
+        public async Task<IActionResult> Create(int id, WeightTracking tracking)
         {
-            tracking.Person = _context.Person.FirstOrDefault(x => x.Id == tracking.Person.Id);
-            if (tracking.Person != null)
-            {
-                tracking.PersonId = tracking.Person.Id;
-            }
+            tracking.Person = _context.Person.FirstOrDefault(x => x.Id == id);
+            if (tracking.Person == null) return NotFound();
 
-            if (ModelState.IsValid)
-            {
-                _context.Add(tracking);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
-            }
+            tracking.Id = 0;
+            tracking.PersonId = tracking.Person.Id;
 
-            return View(tracking);
+            if (!ModelState.IsValid) return View(tracking);
+
+            _context.Add(tracking);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Edit(int? id)
         {
             if (id == null) return NotFound();
 
-            var tracking = Queryable.SingleOrDefault(_context.WeightTracking, x => x.Id == id);
+            var tracking = _context.WeightTracking.SingleOrDefault(x => x.Id == id);
             if (tracking == null) return NotFound();
+
+            tracking.Person = _context.Person.SingleOrDefault(person => person.Id == tracking.PersonId);
 
             return View(tracking);
         }
@@ -62,40 +65,41 @@ namespace WeightTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, WeightTracking tracking)
         {
-            if (id != tracking.Id)
+            if (id != tracking.Id) return NotFound();
+
+            if (!ModelState.IsValid) return View(tracking);
+
+            try
             {
-                return NotFound();
+                _context.Entry(tracking).State = EntityState.Detached;
+                var tempTracking = _context.WeightTracking.FirstOrDefault(x => x.Id == id);
+                if (tempTracking == null)
+                    return RedirectToAction("Index", "Home");
+
+                tracking.PersonId = tempTracking.PersonId;
+                tracking.Person = tempTracking.Person;
+
+                _context.Entry(tempTracking).CurrentValues.SetValues(tracking);
+                _context.Update(tempTracking);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!WeightTrackingExists(tracking.Id))
+                    return NotFound();
+
+                throw;
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(tracking);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!WeightTrackingExists(tracking.Id))
-                        return NotFound();
-
-                    throw;
-                }
-
-                return RedirectToAction("Index", "Home");
-            }
-
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null) 
-                return NotFound();
+            if (id == null) return NotFound();
 
             var tracking = await _context.WeightTracking.SingleOrDefaultAsync(x => x.Id == id);
-            if (tracking == null) 
-                return NotFound();
+            if (tracking == null) return NotFound();
 
             return View(tracking);
         }

@@ -18,10 +18,11 @@ namespace WeightTracker.Models
         [Required(ErrorMessage = "Datum ist erforderlich!")]
         public DateTime Date { get; set; }
 
+        [Display(Name = "Person ID")]
+        [Required(ErrorMessage = "PersonId ist erforderlich!")]
         public int PersonId { get; set; }
 
         [Display(Name = "Person")]
-        [Required(ErrorMessage = "Person ist erforderlich!")]
         [ForeignKey("PersonId")]
         public virtual Person Person { get; set; }
     }

@@ -19,8 +19,9 @@
         {
             <div class="col-md-12">
                 <h2>
-                    @Html.DisplayFor(modelItem => personTrackings.Key.Name)
-                    <a asp-action="Create" asp-controller="WeightTracking">
+                    @Html.DisplayFor(tracking => personTrackings.Key.Name)
+
+                    <a asp-action="Create" asp-controller="WeightTracking" asp-route-id="@personTrackings.Key.Id">
                         <img id="icon-small" src="~/images/Document/AddNews.png" title="Erstellen" alt="Erstellen"/>
                     </a>
                 </h2>

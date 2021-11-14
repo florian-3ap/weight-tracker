@@ -25,24 +25,19 @@ namespace WeightTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Person person)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(person);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Persons", "Home");
-            }
+            if (!ModelState.IsValid) return View(person);
 
-            return View(person);
+            _context.Add(person);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Persons", "Home");
         }
 
         public IActionResult Edit(int? id)
         {
-            if (id == null)
-                return NotFound();
+            if (id == null) return NotFound();
 
-            var person = Queryable.SingleOrDefault(_context.Person, x => x.Id == id);
-            if (person == null)
-                return NotFound();
+            var person = _context.Person.SingleOrDefault(x => x.Id == id);
+            if (person == null) return NotFound();
 
             return View(person);
         }
@@ -51,39 +46,32 @@ namespace WeightTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Person person)
         {
-            if (id != person.Id)
-                return NotFound();
+            if (id != person.Id) return NotFound();
 
+            if (!ModelState.IsValid) return View(person);
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(person);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PersonExists(person.Id))
-                        return NotFound();
+                _context.Update(person);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PersonExists(person.Id))
+                    return NotFound();
 
-                    throw;
-                }
-
-                return RedirectToAction("Persons", "Home");
+                throw;
             }
 
-            return View();
+            return RedirectToAction("Persons", "Home");
         }
 
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-                return NotFound();
+            if (id == null) return NotFound();
 
             var person = await _context.Person.SingleOrDefaultAsync(x => x.Id == id);
-            if (person == null)
-                return NotFound();
+            if (person == null) return NotFound();
 
             return View(person);
         }

@@ -5,7 +5,7 @@
 
 <div>
     <div class="header">
-        <h1>Weight Tracking Bearbeiten</h1>
+        <h1>Weight Tracking Bearbeiten für @Html.DisplayFor(tracking => tracking.Person.Name)</h1>
     </div>
     <hr/>
     <div class="row">
@@ -14,7 +14,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Date" class="control-label"></label>
-                    <input asp-for="Date" class="form-control"/>
+                    <input asp-for="Date" class="form-control" type="date"/>
                     <span asp-validation-for="Date" class="text-danger"></span>
                 </div>
                 <div class="form-group">
