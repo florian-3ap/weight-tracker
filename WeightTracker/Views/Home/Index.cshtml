@@ -6,10 +6,21 @@
 <h1>Weight Tracking</h1>
 
 <div class="row">
+    @if (Model.PersonTracking == null || Model.PersonTracking.Count == 0)
+    {
+        <div class="col-md-12">
+            <h5>Not Person found. Please Create a person first</h5>
+        </div>
+    }
     @foreach (var personTrackings in Model.PersonTracking)
     {
         <div class="col-md-12">
-            <h2>@Html.DisplayFor(modelItem => personTrackings.Key.Name)</h2>
+            <h2>
+                @Html.DisplayFor(modelItem => personTrackings.Key.Name)
+                <a asp-action="Create" asp-controller="WeightTracking">
+                    <img id="icon-small" src="~/images/Document/AddNews.png" title="Erstellen" alt="Erstellen"/>
+                </a>
+            </h2>
 
             <table class="table">
                 <thead>
@@ -52,11 +63,4 @@
             </table>
         </div>
     }
-    <div class="col-md-12">
-        <div>
-            <a asp-action="Create" asp-controller="WeightTracking">
-                <img id="icon-small" src="~/images/Document/AddNews.png" title="Erstellen" alt="Erstellen"/>
-            </a>
-        </div>
-    </div>
 </div>

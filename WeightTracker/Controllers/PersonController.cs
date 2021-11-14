@@ -52,9 +52,8 @@ namespace WeightTracker.Controllers
         public async Task<IActionResult> Edit(int id, Person person)
         {
             if (id != person.Id)
-            {
                 return NotFound();
-            }
+
 
             if (ModelState.IsValid)
             {
@@ -66,9 +65,7 @@ namespace WeightTracker.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!PersonExists(person.Id))
-                    {
                         return NotFound();
-                    }
 
                     throw;
                 }
@@ -82,15 +79,11 @@ namespace WeightTracker.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var person = await _context.Person.SingleOrDefaultAsync(x => x.Id == id);
             if (person == null)
-            {
                 return NotFound();
-            }
 
             return View(person);
         }

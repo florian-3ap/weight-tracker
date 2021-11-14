@@ -50,12 +50,10 @@ namespace WeightTracker.Controllers
 
         public IActionResult Edit(int? id)
         {
-            if (id == null)
-                return NotFound();
+            if (id == null) return NotFound();
 
             var tracking = Queryable.SingleOrDefault(_context.WeightTracking, x => x.Id == id);
-            if (tracking == null)
-                return NotFound();
+            if (tracking == null) return NotFound();
 
             return View(tracking);
         }
@@ -79,9 +77,7 @@ namespace WeightTracker.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!WeightTrackingExists(tracking.Id))
-                    {
                         return NotFound();
-                    }
 
                     throw;
                 }
@@ -94,16 +90,12 @@ namespace WeightTracker.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
+            if (id == null) 
                 return NotFound();
-            }
 
             var tracking = await _context.WeightTracking.SingleOrDefaultAsync(x => x.Id == id);
-            if (tracking == null)
-            {
+            if (tracking == null) 
                 return NotFound();
-            }
 
             return View(tracking);
         }
