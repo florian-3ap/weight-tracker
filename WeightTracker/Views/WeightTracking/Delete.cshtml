@@ -1,0 +1,39 @@
+@model WeightTracking
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div>
+    <div class="header">
+        <h1>Weight Tracking Löschen</h1>
+        <h2>Sind Sie sicher, dass Sie dase Tracking löschen wollen?</h2>
+    </div>
+    <hr/>
+    <table class="table">
+        <thead>
+        <tr>
+            <th style="width: 25%">
+                @Html.DisplayNameFor(tracking => tracking.Date)
+            </th>
+            <th style="width: 40%">@Html.DisplayNameFor(tracking => tracking.Weight)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(tracking => tracking.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(tracking => tracking.Weight) KG
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <form asp-action="Delete">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-default" style="margin-right: 12px">Zurück zur Liste</a>
+            <input type="submit" value="Löschen" class="btn btn-primary"/>
+        </form>
+    </div>
+</div>

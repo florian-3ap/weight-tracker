@@ -1,8 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WeightTracker.Data;
 using WeightTracker.Models;
 
@@ -17,9 +16,21 @@ namespace WeightTracker.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Person.ToListAsync());
+            var persons = _context.Person.ToList();
+            var weightTracking = _context.WeightTracking.ToList();
+
+            var personTracking = new Dictionary<Person, List<WeightTracking>>();
+            persons.ForEach(person =>
+            {
+                personTracking.Add(person, weightTracking.FindAll(tracking => tracking.PersonId == person.Id));
+            });
+
+            return View(new WeightTrackingViewModel
+            {
+                PersonTracking = personTracking
+            });
         }
 
         public IActionResult Persons()
