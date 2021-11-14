@@ -3,56 +3,60 @@
     ViewData["Title"] = "Personen";
 }
 
-<h1>Personen</h1>
-
-<div class="row">
-    <div class="col-md-12">
-        <div>
-            <a asp-action="Create" asp-controller="Person">
-                <img id="icon-small" src="~/images/Document/AddNews.png" title="Erstellen" alt="Erstellen"/>
-            </a>
-        </div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Age)
-                </th>
-                <th>
-                    Aktionen
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var item in Model)
-            {
+<div>
+    <div class="header">
+        <h1>Personen</h1>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <a asp-action="Create" asp-controller="Person">
+                    <img id="icon-small" src="~/images/Document/AddNews.png" title="Erstellen" alt="Erstellen"/>
+                </a>
+            </div>
+            <table class="table">
+                <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FirstName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Age)
-                    </td>
-                    <td>
-                        <a asp-controller="Person" asp-action="Edit" asp-route-id="@item.Id">
-                            <img id="icon-small" src="~/images/Document/EditNews.png" title="Bearbeiten" alt="Bearbeiten"/>
-                        </a> |
-                        <a asp-controller="Person" asp-action="Delete" asp-route-id="@item.Id">
-                            <img id="icon-small" src="~/images/Document/DeleteNews.png" title="Löschen" alt="Löschen"/>
-                        </a>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Age)
+                    </th>
+                    <th>
+                        Aktionen
+                    </th>
                 </tr>
-            }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Age)
+                        </td>
+                        <td>
+                            <a asp-controller="Person" asp-action="Edit" asp-route-id="@item.Id">
+                                <img id="icon-small" src="~/images/Document/EditNews.png" title="Bearbeiten" alt="Bearbeiten"/>
+                            </a> |
+                            <a asp-controller="Person" asp-action="Delete" asp-route-id="@item.Id">
+                                <img id="icon-small" src="~/images/Document/DeleteNews.png" title="Löschen" alt="Löschen"/>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

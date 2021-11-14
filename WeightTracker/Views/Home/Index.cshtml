@@ -3,64 +3,68 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Weight Tracking</h1>
+<div>
+    <div class="header">
+        <h1>Weight Tracking</h1>
+    </div>
+    <hr/>
+    <div class="row">
+        @if (Model.PersonTracking.Count == 0)
+        {
+            <div class="col-md-12">
+                <h5>Not Person found. Please Create a person first</h5>
+            </div>
+        }
+        @foreach (var personTrackings in Model.PersonTracking)
+        {
+            <div class="col-md-12">
+                <h2>
+                    @Html.DisplayFor(modelItem => personTrackings.Key.Name)
+                    <a asp-action="Create" asp-controller="WeightTracking">
+                        <img id="icon-small" src="~/images/Document/AddNews.png" title="Erstellen" alt="Erstellen"/>
+                    </a>
+                </h2>
 
-<div class="row">
-    @if (Model.PersonTracking == null || Model.PersonTracking.Count == 0)
-    {
-        <div class="col-md-12">
-            <h5>Not Person found. Please Create a person first</h5>
-        </div>
-    }
-    @foreach (var personTrackings in Model.PersonTracking)
-    {
-        <div class="col-md-12">
-            <h2>
-                @Html.DisplayFor(modelItem => personTrackings.Key.Name)
-                <a asp-action="Create" asp-controller="WeightTracking">
-                    <img id="icon-small" src="~/images/Document/AddNews.png" title="Erstellen" alt="Erstellen"/>
-                </a>
-            </h2>
-
-            <table class="table">
-                <thead>
-                <tr>
-                    <th style="width: 25%">Datum</th>
-                    <th style="width: 40%">Gewicht</th>
-                    <th>Aktionen</th>
-                </tr>
-                </thead>
-                <tbody>
-                @if (personTrackings.Value.Count == 0)
-                {
+                <table class="table">
+                    <thead>
                     <tr>
-                        <td>
-                            No Data Found
-                        </td>
-                        <td/>
+                        <th style="width: 25%">Datum</th>
+                        <th style="width: 40%">Gewicht</th>
+                        <th>Aktionen</th>
                     </tr>
-                }
-                @foreach (var tracking in personTrackings.Value)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => tracking.Date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => tracking.Weight) KG
-                        </td>
-                        <td>
-                            <a asp-controller="WeightTracking" asp-action="Edit" asp-route-id="@tracking.Id">
-                                <img id="icon-small" src="~/images/Document/EditNews.png" title="Bearbeiten" alt="Bearbeiten"/>
-                            </a> |
-                            <a asp-controller="WeightTracking" asp-action="Delete" asp-route-id="@tracking.Id">
-                                <img id="icon-small" src="~/images/Document/DeleteNews.png" title="Löschen" alt="Löschen"/>
-                            </a>
-                        </td>
-                    </tr>
-                }
-                </tbody>
-            </table>
-        </div>
-    }
+                    </thead>
+                    <tbody>
+                    @if (personTrackings.Value.Count == 0)
+                    {
+                        <tr>
+                            <td>
+                                No Data Found
+                            </td>
+                            <td/>
+                        </tr>
+                    }
+                    @foreach (var tracking in personTrackings.Value)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => tracking.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => tracking.Weight) KG
+                            </td>
+                            <td>
+                                <a asp-controller="WeightTracking" asp-action="Edit" asp-route-id="@tracking.Id">
+                                    <img id="icon-small" src="~/images/Document/EditNews.png" title="Bearbeiten" alt="Bearbeiten"/>
+                                </a> |
+                                <a asp-controller="WeightTracking" asp-action="Delete" asp-route-id="@tracking.Id">
+                                    <img id="icon-small" src="~/images/Document/DeleteNews.png" title="Löschen" alt="Löschen"/>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
 </div>
