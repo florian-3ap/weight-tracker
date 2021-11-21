@@ -66,7 +66,7 @@ namespace WeightTracker.Controllers
                     .ToList();
 
                 var enumerable =
-                    new List<Object> {date.Date.ToString("dd.MM.yyyy")}
+                    new List<object> {date.Date.ToString("dd.MM.yyyy")}
                         .Concat(weightTrackings)
                         .ToList();
 
