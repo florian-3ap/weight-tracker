@@ -6,7 +6,7 @@
 
 <div>
     <div class="header">
-        <h1>Weight Tracking Erstellen für @Html.DisplayFor(tracking => tracking.Person.Name)</h1>
+        <h1>Gewicht Eintrag Erstellen für @Html.DisplayFor(tracking => tracking.Person.Name)</h1>
     </div>
     <hr/>
     <div class="row">
@@ -15,7 +15,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Date" class="control-label"></label>
-                    <input asp-for="Date" class="form-control" type="date"/>
+                    <input asp-for="Date" class="form-control" type="date" autofocus="autofocus"/>
                     <span asp-validation-for="Date" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -24,7 +24,6 @@
                     <span asp-validation-for="Weight" class="text-danger"></span>
                 </div>
             </div>
-            <hr/>
             <div class="col-xs-12">
                 <a asp-controller="Home" asp-action="Index" class="btn btn-default" style="margin-right: 12px">Zurück zur Liste</a>
                 <input type="submit" value="Speichern" class="btn btn-primary"/>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +41,40 @@ namespace WeightTracker.Controllers
 
         public IActionResult Statistics()
         {
-            return View(new StatisticsViewModel());
+            const int numberOfDays = 7;
+
+            var persons = _context.Person.ToList().OrderBy(person => person.Id).ToList();
+            if (persons.Count == 0)
+                return View(new StatisticsViewModel());
+
+            var weightTracking = _context.WeightTracking.ToList()
+                .FindAll(tracking => tracking.Date >= DateTime.Now.AddDays(-numberOfDays))
+                .OrderByDescending(tracking => tracking.Date);
+
+            var statisticListHeader = new List<object> {"Datum"}
+                .Concat(persons.Select(person => person.Name).ToList())
+                .ToList();
+            var statisticList = new List<List<object>> {statisticListHeader};
+
+            var date = DateTime.Now;
+            while (date > DateTime.Now.AddDays(-7))
+            {
+                var weightTrackings = persons.Select(person =>
+                        weightTracking.FirstOrDefault(tracking =>
+                            tracking.PersonId == person.Id && tracking.Date.Date == date.Date))
+                    .Select(tracking => tracking == null ? (object) null : tracking.Weight)
+                    .ToList();
+
+                var enumerable =
+                    new List<Object> {date.Date.ToString("dd.MM.yyyy")}
+                        .Concat(weightTrackings)
+                        .ToList();
+
+                statisticList.Add(enumerable);
+                date = date.AddDays(-1);
+            }
+
+            return View(new StatisticsViewModel {StatisticList = statisticList});
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

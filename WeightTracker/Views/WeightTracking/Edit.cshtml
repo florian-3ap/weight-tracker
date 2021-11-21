@@ -5,7 +5,7 @@
 
 <div>
     <div class="header">
-        <h1>Weight Tracking Bearbeiten für @Html.DisplayFor(tracking => tracking.Person.Name)</h1>
+        <h1>Gewicht Eintrag Bearbeiten für @Html.DisplayFor(tracking => tracking.Person.Name)</h1>
     </div>
     <hr/>
     <div class="row">
@@ -23,7 +23,6 @@
                     <span asp-validation-for="Weight" class="text-danger"></span>
                 </div>
             </div>
-            <hr/>
             <div class="col-xs-12">
                 <a asp-controller="Home" asp-action="Index" class="btn btn-default" style="margin-right: 12px">Zurück zur Liste</a>
                 <input type="submit" value="Speichern" class="btn btn-primary"/>
