@@ -25,7 +25,9 @@ namespace WeightTracker.Controllers
             var personTracking = new Dictionary<Person, List<WeightTracking>>();
             persons.ForEach(person =>
             {
-                personTracking.Add(person, weightTracking.FindAll(tracking => tracking.PersonId == person.Id));
+                var personWeightTracking = weightTracking.FindAll(tracking => tracking.PersonId == person.Id)
+                    .OrderByDescending(tracking => tracking.Date).ToList();
+                personTracking.Add(person, personWeightTracking);
             });
 
             return View(new WeightTrackingViewModel
