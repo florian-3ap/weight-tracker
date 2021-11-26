@@ -12,7 +12,7 @@
         @if (Model.PersonTracking.Count == 0)
         {
             <div class="col-md-12">
-                <h5>Not Person found. Please Create a person first</h5>
+                <h5>Keine Person gefunden. Bitte erst eine Person erstellen</h5>
             </div>
         }
         @foreach (var personTrackings in Model.PersonTracking)
@@ -39,9 +39,8 @@
                     {
                         <tr>
                             <td>
-                                No Data Found
+                                Keine Daten gefunden
                             </td>
-                            <td/>
                         </tr>
                     }
                     @foreach (var tracking in personTrackings.Value)

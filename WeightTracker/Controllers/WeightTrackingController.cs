@@ -52,7 +52,6 @@ namespace WeightTracker.Controllers
                 return View(tracking);
             }
 
-
             _context.Add(tracking);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Home");
@@ -84,6 +83,15 @@ namespace WeightTracker.Controllers
                 var tempTracking = _context.WeightTracking.FirstOrDefault(x => x.Id == id);
                 if (tempTracking == null)
                     return RedirectToAction("Index", "Home");
+
+                var sameDateTracking =
+                    _context.WeightTracking.FirstOrDefault(x =>
+                        (x.PersonId == tempTracking.PersonId && x.Date == tracking.Date));
+                if (sameDateTracking != null)
+                {
+                    ModelState.AddModelError("Date", "Datum wurde schon verwendet.");
+                    return View(tracking);
+                }
 
                 tracking.PersonId = tempTracking.PersonId;
                 tracking.Person = tempTracking.Person;
