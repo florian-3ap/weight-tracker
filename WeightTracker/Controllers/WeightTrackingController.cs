@@ -44,6 +44,15 @@ namespace WeightTracker.Controllers
 
             if (!ModelState.IsValid) return View(tracking);
 
+            var sameDateTracking =
+                _context.WeightTracking.FirstOrDefault(x => (x.PersonId == id && x.Date == tracking.Date));
+            if (sameDateTracking != null)
+            {
+                ModelState.AddModelError("Date", "Datum wurde schon verwendet.");
+                return View(tracking);
+            }
+
+
             _context.Add(tracking);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Home");
