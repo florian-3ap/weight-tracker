@@ -87,7 +87,7 @@ namespace WeightTracker.Controllers
                 var sameDateTracking =
                     _context.WeightTracking.FirstOrDefault(x =>
                         (x.PersonId == tempTracking.PersonId && x.Date == tracking.Date));
-                if (sameDateTracking != null)
+                if (sameDateTracking != null && sameDateTracking.Id != id)
                 {
                     ModelState.AddModelError("Date", "Datum wurde schon verwendet.");
                     return View(tracking);
